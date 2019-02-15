@@ -2,10 +2,12 @@ variable "name" {
   description = "The name of the ELB"
 }
 
-variable "security_groups" {
+/*
+  variable "security_groups" {
   description = "A list of security group IDs to assign to the ELB"
   type        = "list"
 }
+*/
 
 variable "subnets" {
   description = "A list of subnet IDs to attach to the ELB"
