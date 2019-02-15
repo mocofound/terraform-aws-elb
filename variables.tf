@@ -1,13 +1,11 @@
 variable "name" {
   description = "The name of the ELB"
 }
-
 /*
   variable "security_groups" {
   description = "A list of security group IDs to assign to the ELB"
   type        = "list"
 }
-*/
 
 variable "subnets" {
   description = "A list of subnet IDs to attach to the ELB"
@@ -42,7 +40,7 @@ variable "tags" {
   description = "A mapping of tags to assign to the resource"
   default     = {}
 }
-
+  
 variable "listener" {
   description = "A list of listener blocks"
   type        = "list"
@@ -58,7 +56,7 @@ variable "health_check" {
   description = "A health check block"
   type        = "list"
 }
-
+*/
 variable "number_of_instances" {
   description = "Number of instances to attach to ELB"
   default     = 0
