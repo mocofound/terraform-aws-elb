@@ -7,19 +7,43 @@ module "elb" {
   name = "${var.name}"
 
   subnets         = ["${var.subnets}"]
-  security_groups = ["${var.security_groups}"]
-  internal        = "${var.internal}"
+  #security_groups = ["${var.security_groups}"]
+  internal        = true
 
-  cross_zone_load_balancing   = "${var.cross_zone_load_balancing}"
-  idle_timeout                = "${var.idle_timeout}"
-  connection_draining         = "${var.connection_draining}"
-  connection_draining_timeout = "${var.connection_draining_timeout}"
+  cross_zone_load_balancing   = true
+  idle_timeout                = 60
+  connection_draining         = false
+  connection_draining_timeout = 300
+  
+  listener = [
+    {
+      instance_port     = "80"
+      instance_protocol = "HTTP"
+      lb_port           = "80"
+      lb_protocol       = "HTTP"
+    },
+    {
+      instance_port     = "8080"
+      instance_protocol = "HTTP"
+      lb_port           = "8080"
+      lb_protocol       = "HTTP"
+    },
+]
+  access_logs  = []
+  health_check = [
+    {
+      target              = "HTTP:80/"
+      interval            = 30
+      healthy_threshold   = 2
+      unhealthy_threshold = 2
+      timeout             = 5
+    },
+  ]
 
-  listener     = ["${var.listener}"]
-  access_logs  = ["${var.access_logs}"]
-  health_check = ["${var.health_check}"]
-
-  tags = "${merge(var.tags, map("Name", format("%s", var.name)))}"
+  tags = {
+    Owner       = "Consumer"
+    Environment = "development"
+}
 }
 
 #################
